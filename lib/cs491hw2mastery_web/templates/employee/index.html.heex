@@ -1,0 +1,32 @@
+<h1>Employees</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Last name</th>
+      <th>First name</th>
+      <th>Department</th>
+      <th>Role</th>
+      <th>Actions</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for employee <- @employees do %>
+    <tr>
+      <td><%= employee.last_name %></td>
+      <td><%= employee.first_name %></td>
+      <td><%= Enum.at(@departments, employee.department_id - 1).name %></td>
+      <td><%= Enum.at(@roles, employee.role_id - 1).name %></td>
+      <td>
+        <span><%= link "Show", to: Routes.employee_path(@conn, :show, employee) %></span>
+        <span><%= link "Edit", to: Routes.employee_path(@conn, :edit, employee) %></span>
+        <span><%= link "Delete", to: Routes.employee_path(@conn, :delete, employee), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Employee", to: Routes.employee_path(@conn, :new) %></span>

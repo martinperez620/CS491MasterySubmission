@@ -1,0 +1,28 @@
+<h1>Departments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Usage Count</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for department <- @departments do %>
+    <tr>
+      <td><%= department.name %></td>
+      <td><%= Enum.count(@employees, &(&1.department_id == department.id))%></td>
+      <td>
+        <span><%= link "Show", to: Routes.department_path(@conn, :show, department) %></span>
+        <span><%= link "Edit", to: Routes.department_path(@conn, :edit, department) %></span>
+        <%= if Enum.count(@employees, &(&1.department_id == department.id)) == 0 do %>
+        <span><%= link "Delete", to: Routes.department_path(@conn, :delete, department), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <% end %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Department", to: Routes.department_path(@conn, :new) %></span>

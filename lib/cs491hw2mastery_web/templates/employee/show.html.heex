@@ -1,0 +1,20 @@
+<h1>Employee Information: <%= @employee.first_name %> <%= @employee.last_name %></h1>
+
+<ul>
+<%= for employee <- @employees do %>
+  <%= if employee.id == @employee.id do %>
+  <li>
+    <strong>Department: </strong>
+      <td><%= Enum.at(@departments, employee.department_id - 1).name %></td>
+  </li>
+
+  <li>
+    <strong>Role: </strong>
+      <td><%= Enum.at(@roles, employee.role_id - 1).name %></td>
+  </li>
+<% end %>
+<% end %>
+</ul>
+
+<span><%= link "Edit", to: Routes.employee_path(@conn, :edit, @employee) %></span> |
+<span><%= link "Employee Listing", to: Routes.employee_path(@conn, :index) %></span>
